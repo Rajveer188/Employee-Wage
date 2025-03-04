@@ -15,10 +15,17 @@ function getWorkingHour(employeeCheck){
             return 0;
     }
 }
+//number of working day
+const NUMBER_OF_DAYS = 20;
 let employeeHour = 0;
-employeeCheck = Math.floor(Math.random()*10%3);
-//call function to calculate working hour
-employeeHour = getWorkingHour(employeeCheck)
+
+//calculate for 20 days
+for(let day = 0; day<NUMBER_OF_DAYS; day++){
+    let employeeCheck = Math.floor(Math.random()*10%3);
+    //call function to calculate working hour
+    employeeHour += getWorkingHour(employeeCheck)
+}
+
 let employeeWage = employeeHour * WAGE_PER_HOUR;
 //print result
 console.log("employee wage ", employeeWage)
