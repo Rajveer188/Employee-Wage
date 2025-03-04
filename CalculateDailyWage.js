@@ -38,6 +38,57 @@ while(totalEmployeeHour <= MAX_HOUR_IN_MONTH && totalWorkingDay < NUMBER_OF_DAYS
 
 let employeeWage = calculateDailyWage(totalEmployeeHour)
 
-//print result
-console.log(dailyWageArray);
-console.log("total days ",totalWorkingDay," total hours ", totalEmployeeHour, " employee wage ", employeeWage)
+// //print result
+// console.log(dailyWageArray);
+
+//array helper functions
+let totalEmployeeWage = 0;
+function sum(dailyWage){
+    totalEmployeeWage += dailyWage;
+}
+dailyWageArray.forEach(sum);
+console.log("total days ",totalWorkingDay," total hours ", totalEmployeeHour, " employee wage ", totalEmployeeWage)
+
+function totalWages(totalWage, dailyWage){
+    return totalWage + dailyWage;
+}
+
+console.log("employee wage with reduce - " + dailyWageArray.reduce(totalWages, 0))
+
+//show day along with daily wage
+let dailyCounter = 0;
+function mapDayWithWage(dailyWage){
+    dailyCounter++;
+    return dailyCounter + " = "+dailyWage
+}
+let mapDayWithWageArray = dailyWageArray.map(mapDayWithWage);
+console.log("daily wage map \n ", mapDayWithWageArray);
+
+//show day when full time wage of 160 were earned
+function fullTimeWage(dailyWage){
+    return dailyWage.includes("160");
+}
+let fullDayWageArray = mapDayWithWageArray.filter(fullTimeWage)
+console.log("full time wage earned \n", fullDayWageArray);
+
+//first time full wage
+console.log("first time fulltime wage\n", mapDayWithWageArray.find(fullTimeWage));
+
+//verify full time wage array
+console.log("all element have full time wage\n", fullDayWageArray.every(fullTimeWage));
+
+//print part time wage
+function isPartTimeWage(dailyWage){
+    return dailyWage === "80";
+}
+let partTimeWage = mapDayWithWageArray.filter(isPartTimeWage);
+console.log("part time wage\n", partTimeWage);
+
+//number of days employee worked
+function totalDaysWorked(numberOfDays, dailyWage){
+    if(dailyWage > 0){
+        return numberOfDays+1;
+    }
+    return numberOfDays;
+}
+console.log("number of days employee worded-",dailyWageArray.reduce(totalDaysWorked,0));
